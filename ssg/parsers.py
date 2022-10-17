@@ -1,4 +1,3 @@
-from distutils import extension
 from typing import List
 from pathlib import Path
 from shutil import copy2
@@ -28,4 +27,12 @@ class Parser:
       
   def copy(self, path, source, dest):
     copy2(path, dest/source)
+    
+class ResourceParser(Parser):
+  extensions = [".jpg", ".png", ".gif", ".css", ".html"]
+  
+  def parse(self, path, source, dest):
+    self.copy(path, source, dest)
+  
+  
       
