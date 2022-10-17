@@ -1,6 +1,7 @@
 from distutils import extension
 from typing import List
 from pathlib import Path
+from shutil import copy2
 
 class Parser:
 
@@ -20,8 +21,11 @@ class Parser:
       return file.read()
     
   def write(self, path, dest, content, ext=".html"):
-    full_path = self.dest/path.with_suffix(ext).name
+    full_path = dest/path.with_suffix(ext).name
     
     with open(full_path, "wt") as file:
       file.write(content)
+      
+  def copy(self, path, source, dest):
+    copy2(path, dest/source)
       
