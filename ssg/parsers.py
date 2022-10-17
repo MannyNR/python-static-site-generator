@@ -1,6 +1,7 @@
+import shutil
 from typing import List
 from pathlib import Path
-from shutil import copy2
+
 
 class Parser:
 
@@ -16,17 +17,16 @@ class Parser:
     raise NotImplementedError
   
   def read(self, path):
-    with open(path) as file:
+    with open(path, "r") as file:
       return file.read()
     
   def write(self, path, dest, content, ext=".html"):
-    full_path = dest/path.with_suffix(ext).name
-    
-    with open(full_path, "wt") as file:
+    full_path = dest / path.with_suffix(ext).name
+    with open(full_path, "w") as file:
       file.write(content)
       
   def copy(self, path, source, dest):
-    copy2(path, dest/source)
+    shutil.copy2(path, dest/path.relative_to(source))
     
 class ResourceParser(Parser):
   extensions = [".jpg", ".png", ".gif", ".css", ".html"]
