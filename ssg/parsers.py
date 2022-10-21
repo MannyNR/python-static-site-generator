@@ -12,9 +12,6 @@ from ssg.content import Content
 class Parser:
 
   extensions: List[str] = []
-
-  def __init__(self):
-    pass
   
   def valid_extension(self, extension):
     return extension in self.extensions
@@ -26,13 +23,13 @@ class Parser:
     with open(path, "r") as file:
       return file.read()
     
-  def write(self, path, dest, content, ext=".html"):
+  def write(self, path, dest, content, ext= ".html"):
     full_path = dest / path.with_suffix(ext).name
     with open(full_path, "w") as file:
       file.write(content)
       
   def copy(self, path, source, dest):
-    shutil.copy2(path, dest/path.relative_to(source))
+    shutil.copy2(path, dest / path.relative_to(source))
     
 class ResourceParser(Parser):
   extensions = [".jpg", ".png", ".gif", ".css", ".html"]
@@ -55,5 +52,5 @@ class ReStructuredTextParser(Parser):
   def parse(self, path, source, dest):
     content = Content.load(self.read(path))
     html = publish_parts(content.body, writer_name = "html5")
-    self.write(path, dest, html["html body"])
+    self.write(path, dest, html["html_body"])
     sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n".format(path.name, content))
