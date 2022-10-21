@@ -1,10 +1,10 @@
 import re
-from yaml import load, FullLoader
 from collections.abc import Mapping
+from yaml import load, FullLoader
 
 class Content(Mapping):
-  __delimeter = r"^(?:-|\+){3}\s*$"
-  __regex = re.compile(__delimeter, re.MULTILINE)
+  __delimiter = r"^(?:-|\+){3}\s*$"
+  __regex = re.compile(__delimiter, re.MULTILINE)
   
   @classmethod
   def load(cls, string):
